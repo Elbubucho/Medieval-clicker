@@ -1,0 +1,259 @@
+
+/*global*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    
+    color: #333; 
+    font-family: "Lora", serif;
+    font-weight: 400;
+    font-style: normal;
+    background-image: url(/image/bgforge.png);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat; 
+    background-size: 100% 100%;
+    user-select: none;
+}
+
+
+#wrapper {
+    display: flex;
+    width:100%;
+    height: 100vh;
+    flex-direction: column;
+    overflow: hidden;
+}
+h1, h2, h3, h4, h5 {
+    font-family: "Uncial Antiqua", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    
+}
+
+#game {
+    display:flex;
+    flex: 1;
+    gap:20px;
+    width: 100%;
+    height: auto;
+}
+
+canvas {
+    display:none;
+}
+
+.grid_left, .grid_center, .grid_right {
+    flex: 1; 
+    display: flex;
+    flex-direction: column; 
+    padding: 20px;
+    height: 100%;
+}
+
+/*sections*/
+
+header h1{
+    font-size: 5rem;
+    color:#ddd;
+    padding:5px;
+    flex-grow: 1; 
+    text-align: center; 
+    margin: 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.socials {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    padding-right:10px;
+}
+.socials li a {
+    color:#ddd;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+  
+.socials li a:hover {
+    transform: scale(1.1);
+    color: #f39c12;
+}
+  
+.icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* zone message et amelioration active */
+
+.grid_left {
+    border: solid #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: rgba(51, 51, 51, 0.6);
+}
+
+.message_box {
+    color: #ddd;
+    padding: 15px;
+    margin-bottom: 20px;
+    
+}
+
+.game_message {
+    font-size: 18px;
+    color:#ddd;
+}
+
+.options_btn {
+    font-family: "Uncial Antiqua", system-ui;
+    background-color:rgba(243, 156, 18, 1);
+    color: white;
+    font-size: 1.1rem;
+    margin-top: 50px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    opacity:0.8;
+}
+
+.options_btn:hover {
+    opacity:1;
+}
+
+
+/* Zopne de jeu */
+
+.grid_center {
+    display:flex;
+    flex-direction: column;
+    border: solid #333;
+    background-color: rgba(51, 51, 51, 0.6);
+    padding: 20px;
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.swordPerSeconde, .sword {
+    font-size: 18px;
+    margin:15px;
+    color: #fff;
+}
+
+.smithNameAnchor {
+    padding: 10px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+#smithInput {
+    font-family: "Uncial Antiqua", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    background:none;
+    border:none;
+    text-align:center;
+    font-size:1.5rem;
+    color: #ddd;
+    outline: none;
+    width: 100%;
+    padding: 10px;
+    max-width: 400px;
+}
+#smithInput:focus {
+    border: 2px solid #f39c12;
+}
+#smithInput:hover {
+    cursor:pointer;
+    
+}
+.smithAnchor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.smith_button {
+    margin-top: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    width:400px;                    
+    height: auto;                   
+    
+}
+.smith_button:hover {
+    opacity: 0.9;
+    cursor:pointer;
+}
+.smith_button:active{
+    opacity:1;
+    transform: scale(1.02);
+}
+
+/* Zone shop */
+
+.grid_right {
+    border: solid #333;
+    background-color: rgba(51, 51, 51, 0.6); 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.shop_title{
+    font-size: 18px;
+    margin: 10px;
+    color:#fff;
+    text-align: center;
+}
+.shop_content {
+    display: flex;
+    background-color:rgba(243, 156, 18, 0.8);
+    border: solid 10px;
+    border-image: url("/image/6662487.jpg") 30 repeat;
+    padding: 15px;
+    text-align: center;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+    cursor: pointer;
+    opacity:0.8;
+}
+.shop_content:hover {
+   opacity:1;
+}
+.cost_info{
+    display:flex;
+    gap: 5px;
+    align-items: center;
+}
+.upgrade_img{
+    width: 55px;
+}
+.sword_img{
+    width: 20px;
+    height: 20px;
+}
+footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+}
+
