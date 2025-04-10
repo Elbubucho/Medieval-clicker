@@ -20,16 +20,24 @@ body {
     background-repeat: no-repeat; 
     background-size: 100% 100%;
     user-select: none;
+    overflow: hidden;
 }
-
 
 #wrapper {
     display: flex;
     width:100%;
     height: 100vh;
     flex-direction: column;
-    overflow: hidden;
+    transform: scale(0.9);
 }
+
+
+@media (max-width: 750px) {
+    #wrapper {
+        transform: scale(0.8); 
+    }
+}
+
 h1, h2, h3, h4, h5 {
     font-family: "Uncial Antiqua", system-ui;
     font-weight: 400;
@@ -39,10 +47,9 @@ h1, h2, h3, h4, h5 {
 
 #game {
     display:flex;
-    flex: 1;
     gap:20px;
     width: 100%;
-    height: auto;
+    height: 100%;
 }
 
 canvas {
@@ -50,24 +57,32 @@ canvas {
 }
 
 .grid_left, .grid_center, .grid_right {
-    flex: 1; 
+    flex: 1 1 30%; 
     display: flex;
     flex-direction: column; 
-    padding: 20px;
     height: 100%;
+    min-width: 250px;
+    box-sizing: border-box;
 }
 
+img {
+    max-width: 100%;
+    height:auto;
+}
 /*sections*/
 
 header h1{
     font-size: 5rem;
     color:#ddd;
-    padding:5px;
     flex-grow: 1; 
     text-align: center; 
     margin: 0;
 }
-
+@media (max-width:730px){
+    header h1{
+        font-size: 3rem;
+    }
+}
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -99,7 +114,6 @@ header h1{
 
 .grid_left {
     border: solid #333;
-    padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: rgba(51, 51, 51, 0.6);
@@ -113,6 +127,7 @@ header h1{
 }
 
 .game_message {
+    padding-top:1.5em;
     font-size: 18px;
     color:#ddd;
 }
@@ -140,7 +155,6 @@ header h1{
 
 .grid_center {
     display:flex;
-    flex-direction: column;
     border: solid #333;
     background-color: rgba(51, 51, 51, 0.6);
     padding: 20px;
@@ -149,7 +163,7 @@ header h1{
 }
 
 .swordPerSeconde, .sword {
-    font-size: 18px;
+    font-size: 1.5rem;
     margin:15px;
     color: #fff;
     text-align: center;
@@ -168,7 +182,7 @@ header h1{
     border:none;
     text-align:center;
     align-items: center;
-    font-size:1.5rem;
+    font-size:2rem;
     color: #ddd;
     outline: none;
     width: 100%;
@@ -185,12 +199,11 @@ header h1{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
     text-align: center;
 }
 
 .smith_button {
-    margin-top: 200px;
+    margin-top: 150px;
     display: flex;
     justify-content: center;
     align-items: center; 
@@ -198,6 +211,7 @@ header h1{
     height: auto;                   
     
 }
+
 .smith_button:hover {
     opacity: 0.9;
     cursor:pointer;
@@ -215,9 +229,11 @@ header h1{
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    gap:10px;
+    position:relative;
 }
 .shop_title{
-    font-size: 18px;
+    font-size: 1.5rem;
     margin: 10px;
     color:#fff;
     text-align: center;
@@ -225,9 +241,9 @@ header h1{
 .shop_content {
     display: flex;
     background-color:rgba(243, 156, 18, 0.8);
-    border: solid 10px;
+    border: solid 7px;
     border-image: url("/image/6662487.jpg") 30 repeat;
-    padding: 15px;
+    padding: min(1.5em, 8%);
     text-align: center;
     align-items: center;
     justify-content: space-between;
@@ -237,15 +253,16 @@ header h1{
     position:relative;
 }
 .next_lvl_info{
+    display: flex;
     position: absolute;
-    align-items: center;
+    text-align: center;
     left: -150px;
-    background-color:#333;
+    background:linear-gradient(to bottom, rgb(50, 50, 50, 0.8), rgba(0, 0, 0, 0.8));
     color: #ddd;
     padding: 15px;
-    border: solid 10px;
+    border: solid 6px;
     border-image: url("/image/6662487.jpg") 30 repeat;
-    height: 100px;
+    height: 85%;
     display:none;
 }
 .shop_content:hover .next_lvl_info {
@@ -253,27 +270,27 @@ header h1{
  }
 .shop_content:hover {
    opacity:1;
+   color: black;
 }
 .mid_section h4{
     margin-bottom: 20px;
     font-size: 1.5rem;
 }
+
 .cost_info{
     display:flex;
-    gap: 5px;
+    gap: 7px;
+    align-items: center;
+    justify-content: center;
+}
+
+.upgrade_img{
+
+    width: 115px;
     align-items: center;
 }
-.upgrade_img{
-    width: 55px;
-}
 .sword_img{
-    width: 20px;
-    height: 20px;
-}
-footer {
-    margin-top: 20px;
-    text-align: center;
-    font-size: 14px;
-    color: #777;
+    width: 45px;
+    height: 45px;
 }
 

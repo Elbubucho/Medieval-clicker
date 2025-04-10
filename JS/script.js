@@ -34,7 +34,7 @@ let parsedClickerIncrease = parseFloat(clickerIncrease.innerHTML);
        sword.innerHTML = swordNbr;
        clickerLevel.innerHTML ++;
        clickerIncrease.innerHTML = ++ parsedClickerIncrease;
-       clickerCost.innerHTML = Math.round(parsedClickerCost *= 1.5);
+       clickerCost.innerHTML = Math.round(parsedClickerCost *= 1.6);
        clickerSpS = clickerIncrease.innerHTML - 1;
        }
  });  
@@ -51,3 +51,4 @@ sword.innerHTML = swordNbr;
 setInterval(autoclicker,1000);
 
 autoclicker();
+
