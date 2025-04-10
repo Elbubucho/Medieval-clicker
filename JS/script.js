@@ -1,13 +1,46 @@
 
 /* Incrementation du nombre d'épée au click */
-let swordNbr = document.querySelector('.sword_nbr');
+let sword = document.querySelector('.sword_nbr');
+let swordNbr = parseFloat(sword.innerHTML);
 let smithBtn = document.querySelector('.smith_button');
 
 function incrementSmith() {
     smithBtn.addEventListener('click', () => {
-        swordNbr.innerHTML = parseFloat(swordNbr.innerHTML) + 1;
+        sword.innerHTML = ++swordNbr;
     });
 
 };
 incrementSmith();
+
+/* achat d'un autoclicker */
+
+let clickerCost = document.querySelector('.clicker_cost');
+let parsedClickerCost = parseFloat(clickerCost.innerHTML);
+
+let clicker = document.querySelector('.shop_content');
+
+let clickerLevel = document.querySelector('.clicker_lvl');
+let parsedClickerLevel = parseFloat(clickerLevel.innerHTML);
+let clickerIncrease = document.querySelector('.clicker_increase');
+let parsedClickerIncrease = parseFloat(clickerIncrease.innerHTML);
+let clickerSpS = 0;
+
+function buyClicker(){
+    clicker.addEventListener('click', () => {
+    if (swordNbr >= parsedClickerCost) {
+       swordNbr = sword.innerHTML -= parsedClickerCost;
+       clickerLevel.innerHTML ++;
+       clickerIncrease.innerHTML = ++ parsedClickerIncrease;
+       clickerCost.innerHTML = parsedClickerCost *= 2;
+       clickerSpS = clickerIncrease.innerHTML - 1;
+       }
+ });  
+ function autoclicker () {
+            swordNbr += clickerSpS;
+        sword.innerHTML = swordNbr;
+        }
+        setInterval(autoclicker,1000);
+}
+
+buyClicker();
 

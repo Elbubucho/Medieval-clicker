@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Uncial+Antiqua&display=swap" rel="stylesheet">
-    <script src="/JS/script.js" defer></script>
+    <script src="/JS/script.js" async></script>
 </head>
 <body>
         <header>
@@ -61,7 +61,7 @@
                 </div>
                 
                 <div id="sword" class=sword>
-                    <p> Epée : <span class="sword_nbr">0 </span> </p>
+                    <p> Epées : <span class="sword_nbr">0 </span> </p>
                    
                 </div>
 
@@ -78,18 +78,23 @@
                     <h2>Boutique</h2> 
                 </div>
                 <div class="shop_content 1">
+                    <div class="next_lvl_info">
+                        <p>
+                            + <span class="clicker_increase">1</span> épée <br>par seconde
+                        </p>
+                    </div>
                     <div class="left_section">
                         <img src="/image/cursor.png" alt="cursor" class="upgrade_img">
                     </div>
                     <div class="mid_section">
                         <h4>Clicker</h4>
                         <div class="cost_info">
-                            <p>Coût: 10</p>
+                            <p>Coût: <span class="clicker_cost">10</span> </p>
                             <img src="/image/sword.png" alt="sword" class="sword_img">
                         </div>
                     </div>
                     <div class="rigth_section">
-                        Niveau: 0
+                        Niveau: <span class="clicker_lvl">0</span>
                     </div>  
                 </div>
              
