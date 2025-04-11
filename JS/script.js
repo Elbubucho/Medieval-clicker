@@ -1,54 +1,122 @@
 
-/* Incrementation du nombre d'épée au click */
 let sword = document.querySelector('.sword_nbr');
 let swordNbr = Math.round(parseFloat(sword.innerHTML));
 let smithBtn = document.querySelector('.smith_button');
+let swordPerClick = 0;
+let wholeSpS = 0;
 
+/* Incrementation du nombre d'épée au click en fonction des objets achetés */
 function incrementSmith() {
     smithBtn.addEventListener('click', () => {
+        swordNbr += swordPerClick;
         sword.innerHTML = ++swordNbr;
     });
 
 };
 incrementSmith();
 
-/* achat d'un autoclicker */
+/* achat des objets */
 
+let shopItems = {
+    clicker : {
+        cost:10,
+        level:0,
+        costMultiplier:1.6,
+        spsIncrement:1,
+        type:'morePerSeconde',
+        element: document.querySelector('.shop_content.cursor'),
+        costElement:document.querySelector('.clicker_cost'),
+        levelElement:document.querySelector('.clicker_lvl'),
+        increaseElement:document.querySelector('.clicker_increase'),
+    },
 
-let clickerSpS = 0;
+    blacksmith : {
+        cost:150,
+        level:0,
+        costMultiplier:1.6,
+        spsIncrement:5,
+        type:'morePerSeconde',
+        element: document.querySelector('.shop_content.blacksmith'),
+        costElement:document.querySelector('.blacksmith_cost'),
+        levelElement:document.querySelector('.blacksmith_lvl'),
+        increaseElement:document.querySelector('.blacksmith_increase'),
+    
+    },
+    hammer : {
+        cost:100,
+        level:0,
+        costMultiplier:1.6,
+        spsIncrement:3,
+        type:'morePerClick',
+        element: document.querySelector('.shop_content.hammer'),
+        costElement:document.querySelector('.hammer_cost'),
+        levelElement:document.querySelector('.hammer_lvl'),
+        increaseElement:document.querySelector('.hammer_increase'),
+    },
+    oven: {
+        cost:7000,
+        level:0,
+        costMultiplier:1.6,
+        spsIncrement:15,
+        type:'morePerClick',
+        element: document.querySelector('.shop_content.oven'),
+        costElement:document.querySelector('.oven_cost'),
+        levelElement:document.querySelector('.oven_lvl'),
+        increaseElement:document.querySelector('.oven_increase'),
 
-function buyClicker(){
+    }
+};
 
-let clickerCost = document.querySelector('.clicker_cost');
-let parsedClickerCost = parseFloat(clickerCost.innerHTML);
-let clicker = document.querySelector('.shop_content');
-let clickerLevel = document.querySelector('.clicker_lvl');
-let parsedClickerLevel = parseFloat(clickerLevel.innerHTML);
-let clickerIncrease = document.querySelector('.clicker_increase');
-let parsedClickerIncrease = parseFloat(clickerIncrease.innerHTML);
+function buyItems(){
 
-    clicker.addEventListener('click', () => {
-    if (swordNbr >= parsedClickerCost) {
-       swordNbr-= parsedClickerCost;
-       swordNbr = Math.floor(swordNbr);
-       sword.innerHTML = swordNbr;
-       clickerLevel.innerHTML ++;
-       clickerIncrease.innerHTML = ++ parsedClickerIncrease;
-       clickerCost.innerHTML = Math.round(parsedClickerCost *= 1.6);
-       clickerSpS = clickerIncrease.innerHTML - 1;
-       }
- });  
+    let shopContent = document.querySelectorAll('.shop_content');
+
+    shopContent.forEach(shopContent => {
+        shopContent.addEventListener('click', () => {
+
+         let itemData = shopContent.dataset.item;
+
+         let shopItemsCost =  shopItems[itemData].costElement.innerHTML;
+
+            if(swordNbr >= shopItemsCost) {
+
+                    let shopItemsCostElement = parseFloat(shopItems[itemData].costElement.innerHTML);
+                    let shopItemsLevelElement = parseFloat(shopItems[itemData].levelElement.innerHTML);
+                    let shopIncreaseElement = parseFloat(shopItems[itemData].increaseElement.innerHTML);
+                    let shopCostElement = parseFloat(shopItems[itemData].costElement.innerHTML);
+
+                    swordNbr -=shopItemsCostElement;
+                    swordNbr = Math.floor(swordNbr);
+                    sword.innerHTML = swordNbr;
+
+                    shopItemsLevelElement ++;
+                    shopItems[itemData].levelElement.innerHTML = shopItemsLevelElement;
+
+                    shopIncreaseElement += shopItems[itemData].spsIncrement;
+                    shopItems[itemData].increaseElement.innerHTML = shopIncreaseElement;
+
+                    shopCostElement *= shopItems[itemData].costMultiplier;
+                    shopItems[itemData].costElement.innerHTML = Math.floor(shopCostElement);
+
+                if( shopItems[itemData].type === 'morePerSeconde'){
+                    wholeSpS += shopItems[itemData].spsIncrement;
+                }
+                else{
+                    swordPerClick+= shopItems[itemData].spsIncrement;
+                }
+            }
+        });
+    });
 }
 
-buyClicker();
-/* lancement de l'autoclicker */
+buyItems();
+
+/* lancement de l'autoclicker en fonction des objets achetés*/
 
 function autoclicker () {
-    swordNbr += clickerSpS;
+    swordNbr += wholeSpS;
     swordNbr = Math.floor(swordNbr);
-sword.innerHTML = swordNbr;
+    sword.innerHTML = swordNbr;
 }
 setInterval(autoclicker,1000);
-
 autoclicker();
-
