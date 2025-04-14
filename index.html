@@ -12,6 +12,7 @@
     <script src="/JS/script.js" async></script>
 </head>
 <body>
+    <div class="custom_cursor"> <img src="/image/hammercursor.png"></div> 
         <header>
             <nav class="navbar">
                 <h1> Forge clicker</h1>
@@ -36,15 +37,13 @@
             </nav>
             
         </header>
-    <div id="wrapper">
-          
+    <div id="wrapper">  
          <div id="game" class="grid_layout">
-      
+            
              <section class="grid_left">
       
                 <div class="message_box">
                     <p class="game_message"><strong>Tu souhaites forger comme un dieu, mais tu n'as pas de muscle...</strong> </p>  <!--chercher a faire defiler des messages, en, fonction du nombre d'épée par s-->
-                    <button class="options_btn">Options</button>
                 </div>
       
                 <div class="upgrades_left">
@@ -53,6 +52,7 @@
       
             </section>
             <section class="grid_center">
+                <img src="/image/sword.png" alt="flyingSword" class="flying_sword">
                 <canvas id="backgroundCanvas"></canvas>
                  <div class="smithNameAnchor">
                     <div id="smithName" class="smith_title">
@@ -61,12 +61,12 @@
                 </div>
                 
                 <div id="sword" class=sword>
-                    <p> Epées : <br> <span class="sword_nbr">0 </span> </p>
+                    <p> Epées : <br><span class="sword_nbr"> 100</span> </p>
                    
                 </div>
 
                 <div class="swordPerSeconde">
-                        <p> Epée par seconde : <span class="sps_counter">0</span> </p>
+                        <p> Par seconde : <br> <span class="sps_counter">0</span> </p>
                 </div>
                 <div class="smithAnchor">
                     <img src="/image/forge.png" alt="La forge" class="smith_button" draggable="false">
@@ -89,7 +89,7 @@
                     <div class="mid_section">
                         <h4>Clicker</h4>
                         <div class="cost_info">
-                            <p>Coût: <span class="clicker_cost">10</span> </p>
+                            <p><span class="clicker_cost">10</span> </p>
                             <img src="/image/sword.png" alt="sword" class="sword_img" draggable="false">
                         </div>
                     </div>
@@ -110,7 +110,7 @@
                     <div class="mid_section">
                         <h4>Marteau</h4>
                         <div class="cost_info">
-                            <p>Coût: <span class="hammer_cost">100</span> </p>
+                            <p><span class="hammer_cost">100</span> </p>
                             <img src="/image/sword.png" alt="sword" class="sword_img" draggable="false">
                         </div>
                     </div>
@@ -131,12 +131,12 @@
                     <div class="mid_section">
                         <h4>Forgeroux</h4>
                         <div class="cost_info">
-                            <p>Coût: <span class="blacksmith_cost">150</span> </p>
+                            <p><span class="blacksmith_cost">150</span> </p>
                             <img src="/image/sword.png" alt="sword" class="sword_img" draggable="false">
                         </div>
                     </div>
                     <div class="right_section">
-                        Niveau: <span class="blacksmith_lvl">0</span>
+                        Niveau: <br><span class="blacksmith_lvl">0</span>
                     </div>  
                 </div>
                 <div class="shop_content last" data-item="oven">
@@ -152,12 +152,12 @@
                     <div class="mid_section">
                         <h4>Four</h4>
                         <div class="cost_info">
-                            <p>Coût: <span class="oven_cost">7000</span> </p>
+                            <p> <span class="oven_cost">7000</span> </p>
                             <img src="/image/sword.png" alt="sword" class="sword_img" draggable="false">
                         </div>
                     </div>
                     <div class="right_section">
-                        Niveau: <span class="oven_lvl">0</span>
+                        Niveau: <br><span class="oven_lvl">0</span>
                     </div>  
                 </div>
               
@@ -165,6 +165,5 @@
       
         </div>
     </div>
-      
 </body>
 </html>

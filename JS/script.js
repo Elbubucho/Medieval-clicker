@@ -35,7 +35,7 @@ let shopItems = {
     blacksmith : {
         cost:150,
         level:0,
-        costMultiplier:1.6,
+        costMultiplier:1.3,
         spsIncrement:5,
         type:'morePerSeconde',
         element: document.querySelector('.shop_content.blacksmith'),
@@ -47,7 +47,7 @@ let shopItems = {
     hammer : {
         cost:100,
         level:0,
-        costMultiplier:1.6,
+        costMultiplier:1.3,
         spsIncrement:3,
         type:'morePerClick',
         element: document.querySelector('.shop_content.hammer'),
@@ -97,6 +97,7 @@ function buyItems(){
 
                     shopCostElement *= shopItems[itemData].costMultiplier;
                     shopItems[itemData].costElement.innerHTML = Math.floor(shopCostElement);
+                    CustomHammerCursor();
 
                 if( shopItems[itemData].type === 'morePerSeconde'){
                     wholeSpS += shopItems[itemData].spsIncrement;
@@ -115,7 +116,6 @@ function buyItems(){
                         }
                 };
                 swordPerSeconde();
-                
             }
         });
     });
@@ -148,3 +148,78 @@ function greyitems(){
 }
 greyitems();
 setInterval(greyitems,100);
+
+/* Animaition au clique sur la forge */
+const swordTiming = {
+    duration : 2000,
+    iterations: 1,
+};
+
+let flyingSword = document.querySelector('.flying_sword');
+let gridCenter = document.querySelector('.grid_center');
+
+
+function getRandomPosition(gridCenter) {
+    const gridCenterRect = gridCenter.getBoundingClientRect();
+    const x = Math.random() * (gridCenterRect.width - flyingSword.offsetWidth);
+    const y = Math.random() * (gridCenterRect.height - flyingSword.offsetHeight);
+    return { x, y };
+}
+
+function getMousePosition(event, gridCenter){
+        const gridCenterRect = gridCenter.getBoundingClientRect();
+        const relativeX = event.clientX - gridCenterRect.left;
+        const relativeY = event.clientY - gridCenterRect.top;
+        return{relativeX, relativeY};
+}
+function animatedSwordFromButtonClick (){
+    smithBtn.addEventListener("click", (event) => {
+        
+        let flyingClone = flyingSword.cloneNode(true);
+        gridCenter.appendChild(flyingClone);
+        flyingClone.classList.add("display_animation");
+
+        const {relativeX, relativeY} = getMousePosition(event, gridCenter);
+        const { x, y } = getRandomPosition(gridCenter);
+
+        const swordAnimation = [
+            { transform: `translate(${relativeX}px, ${relativeY}px) rotate(0deg)`, opacity: 1 },
+            { transform: `translate(${x}px, ${y}px) rotate(360deg)`, opacity: 0 },
+        ];
+
+        const animation =  flyingClone.animate(swordAnimation, swordTiming);
+        animation.onfinish = () => {
+            flyingClone.classList.remove("display_animation");
+        }
+
+    });
+};
+animatedSwordFromButtonClick();
+
+/* curseur perso */
+
+function CustomHammerCursor(){
+    if (parseFloat(shopItems.hammer.levelElement.innerHTML) > 0) {
+       
+        const customCursor = document.querySelector('.custom_cursor');
+        document.body.classList.add('no_cursor');
+
+        const cursorAnimation = [
+            { transform: 'translate(-50%, -50%) rotate(0deg)' },
+            { transform: 'translate(-50%, -50%) rotate(70deg)'},
+        ];
+        const cursorTiming = {
+            duration : 200,
+            iterations: 1,
+        };
+
+        document.addEventListener('mousemove', (e) => {
+            customCursor.style.top = `${e.clientY}px`;
+            customCursor.style.left = `${e.clientX}px`;
+        });
+        document.addEventListener('click',() => {
+            customCursor.animate(cursorAnimation, cursorTiming);
+        });
+    }
+}
+
