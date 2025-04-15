@@ -4,6 +4,8 @@ let swordNbr = Math.round(parseFloat(sword.innerHTML));
 let smithBtn = document.querySelector('.smith_button');
 let swordPerClick = 0;
 let wholeSpS = 0;
+let returnSpS = document.querySelector('.sps_counter');
+let parsedReturnSpS = parseFloat(returnSpS.innerHTML);
 
 /* Incrementation du nombre d'épée au click en fonction des objets achetés et MAJ du nbr affiché */
 function incrementSmith() {
@@ -14,15 +16,56 @@ function incrementSmith() {
 
 };
 incrementSmith();
-/* MAJ de l'affichage generé passivement */
+/* Save Load */
+
+function save(){
+    localStorage.clear();
+
+    let shopContent = document.querySelectorAll('.shop_content');
+    shopContent.forEach(shopContent => {
+        let itemData = shopContent.dataset.item;
+        let shopItem = shopItems[itemData];
+    
+    
+        const saveObj = JSON.stringify( { 
+            parsedLevel: parseFloat(shopItem.levelElement.innerHTML),
+            parsedCost: parseFloat(shopItem.costElement.innerHTML),
+            parsedIncrease: parseFloat(shopItem.increaseElement.innerHTML),
+        });
+        
+        localStorage.setItem(itemData, saveObj)
+    });
+    localStorage.setItem('swordPerClick', JSON.stringify(swordPerClick));
+    localStorage.setItem('wholeSpS', JSON.stringify(wholeSpS));
+    localStorage.setItem('swordNbr', JSON.stringify(swordNbr));
+    localStorage.setItem('parsedReturnSpS', JSON.stringify(parsedReturnSpS));
+    
+    
+}
+function load(){
+    let shopContent = document.querySelectorAll('.shop_content');
+    shopContent.forEach(shopContent => {
+        let itemData = shopContent.dataset.item;
+        let shopItem = shopItems[itemData];
+
+        const savedObj = JSON.parse(localStorage.getItem(itemData))
+        shopItem.costElement.innerHTML= savedObj.parsedCost
+        shopItem.levelElement.innerHTML= savedObj.parsedLevel
+        shopItem.increaseElement.innerHTML= savedObj.parsedIncrease
+        
+    })
+    swordPerClick = JSON.parse(localStorage.getItem('swordPerClick'))
+    wholeSpS = JSON.parse(localStorage.getItem('wholeSpS'))
+    swordNbr = JSON.parse(localStorage.getItem('swordNbr'))
+    parsedReturnSpS = JSON.parse(localStorage.getItem('parsedReturnSpS'))
+    returnSpS.innerHTML = parsedReturnSpS;
+    CustomHammerCursor();
 
 
-
+}
 /* achat des objets */
 let shopItems = {
     clicker : {
-        cost:10,
-        level:0,
         costMultiplier:1.3,
         spsIncrement:1,
         type:'morePerSeconde',
@@ -33,8 +76,6 @@ let shopItems = {
     },
 
     blacksmith : {
-        cost:150,
-        level:0,
         costMultiplier:1.3,
         spsIncrement:5,
         type:'morePerSeconde',
@@ -45,8 +86,6 @@ let shopItems = {
     
     },
     hammer : {
-        cost:100,
-        level:0,
         costMultiplier:1.3,
         spsIncrement:3,
         type:'morePerClick',
@@ -56,8 +95,6 @@ let shopItems = {
         increaseElement:document.querySelector('.hammer_increase'),
     },
     oven: {
-        cost:7000,
-        level:0,
         costMultiplier:2,
         spsIncrement:50,
         type:'morePerClick',
@@ -107,9 +144,6 @@ function buyItems(){
                 }
 
                 function swordPerSeconde() {
-                    let returnSpS = document.querySelector('.sps_counter');
-                    let parsedReturnSpS = parseFloat(returnSpS.innerHTML);
-                
                         if (wholeSpS >= 1) {
                             parsedReturnSpS = wholeSpS;
                             returnSpS.innerHTML = parsedReturnSpS;
