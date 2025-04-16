@@ -66,7 +66,7 @@ function load(){
 /* achat des objets */
 let shopItems = {
     clicker : {
-        costMultiplier:1.3,
+        costMultiplier:1.35,
         spsIncrement:1,
         type:'morePerSeconde',
         element: document.querySelector('.shop_content.cursor'),
@@ -76,7 +76,7 @@ let shopItems = {
     },
 
     blacksmith : {
-        costMultiplier:1.3,
+        costMultiplier:1.4,
         spsIncrement:5,
         type:'morePerSeconde',
         element: document.querySelector('.shop_content.blacksmith'),
@@ -86,7 +86,7 @@ let shopItems = {
     
     },
     hammer : {
-        costMultiplier:1.3,
+        costMultiplier:1.4,
         spsIncrement:3,
         type:'morePerClick',
         element: document.querySelector('.shop_content.hammer'),
@@ -95,7 +95,7 @@ let shopItems = {
         increaseElement:document.querySelector('.hammer_increase'),
     },
     oven: {
-        costMultiplier:2,
+        costMultiplier:1.6,
         spsIncrement:50,
         type:'morePerClick',
         element: document.querySelector('.shop_content.oven'),

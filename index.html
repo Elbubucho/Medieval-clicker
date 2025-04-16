@@ -19,7 +19,6 @@
                     <button class="util_button" onclick="save()">Sauvegarder</button>
                     <button class="util_button" onclick="load()">Charger</button>
                 </div>  
-                <h1> Forge clicker</h1>
 
                 <ul class="socials">
                     <li> 
@@ -50,8 +49,22 @@
                     <p class="game_message"><strong>Tu souhaites forger comme un dieu, mais tu n'as pas de muscle...</strong> </p>  <!--chercher a faire defiler des messages, en, fonction du nombre d'épée par s-->
                 </div>
       
-                <div class="upgrades_left">
-                    
+                <div class="upgrades_info">
+                    <h2>Niveau des améliorations</h2>
+                    <div class="upgrades_lvl" data-item="clicker">
+                        Clicker : <span class="clicker_lvl">0</span>
+                    </div>
+
+                    <div class="upgrades_lvl" data-item="blacksmith">
+                        Forgeroux : <span class="blacksmith_lvl">0</span>
+                    </div> 
+
+                    <div class="upgrades_lvl" data-item="hammer">
+                        Marteau : <span class="hammer_lvl">0</span>
+                    </div> 
+                    <div class="upgrades_lvl" data-item="oven">
+                        Four : <span class="oven_lvl">0</span>
+                    </div> 
                 </div>
       
             </section>
@@ -65,12 +78,12 @@
                 </div>
                 
                 <div id="sword" class=sword>
-                    <p> Epées : <br><span class="sword_nbr"> 100</span> </p>
+                    <p> Epées <br><span class="sword_nbr"> 100</span> </p>
                    
                 </div>
 
                 <div class="swordPerSeconde">
-                        <p> Par seconde : <br> <span class="sps_counter">0</span> </p>
+                        <p> Par seconde <br> <span class="sps_counter">0</span> </p>
                 </div>
                 <div class="smithAnchor">
                     <img src="/image/forge.png" alt="La forge" class="smith_button" draggable="false">
@@ -81,90 +94,81 @@
                 <div class="shop_title">
                     <h2>Boutique</h2> 
                 </div>
-                <div class="shop_content one" data-item="clicker">
-                    <div class="next_lvl_info">
-                        <p>
-                          <strong>  + <span class="clicker_increase">1</span> épée </strong> <br>par seconde <br> <em> Pourquoi cliquer soi-même quand on peut payer quelqu-un ?</em>
-                        </p>
-                    </div>
-                    <div class="left_section">
-                        <img src="/image/cursor.png" alt="cursor" class="upgrade_img" draggable="false" >
-                    </div>
-                    <div class="mid_section">
-                        <h4>Clicker</h4>
-                        <div class="cost_info">
-                            <p><span class="clicker_cost">10</span> </p>
-                            <img src="/image/sword.png" alt="sword" class="sword_img" draggable="false">
+                <div class="shop">
+                    <div class="shop_content one" data-item="clicker">
+                        <div class="next_lvl_info">
+                            <p>
+                            <strong>  + <span class="clicker_increase">1</span>/sec </strong> <br> <em> Pourquoi cliquer soi-même quand on peut payer quelqu-un ?</em>
+                            </p>
+                        </div>
+                        <div class="left_section">
+                            <img src="/image/cursor.png" alt="cursor" class="upgrade_img" draggable="false" >
+                        </div>
+                        <div class="mid_section">
+                            <h4>Clicker</h4>
+                            <div class="cost_info">
+                                <p><span class="clicker_cost">10</span> </p>
+                                <img src="/image/sword.png" alt="sword" class="sword_img" draggable="false">
+                            </div>
                         </div>
                     </div>
-                    <div class="right_section">
-                        Niveau: <br> <span class="clicker_lvl">0</span>
-                    </div>  
-                </div>
-                <div class="shop_content two" data-item="hammer">
-                    <div class="next_lvl_info">
-                        <p>
-                         <strong> + <span class="hammer_increase">3</span> épées </strong>  <br>pour un clic <br> <em> Un outil robuste pour personne faible.</em>
-                        </p>
-                    </div>
-                    <div class="left_section">
-                        <img src="/image/hammer.png" alt="hammer" class="upgrade_img" draggable="false">
-                    </div>
+                    <div class="shop_content two" data-item="blacksmith">
+                        <div class="next_lvl_info">
+                            <p>
+                            <strong> + <span class="blacksmith_increase">5</span>/sec </strong>  <br> <em> Ces mecs bossent dur sans jamais se plaindre.</em>
+                            </p>
+                        </div>
+                        <div class="left_section">
+                            <img src="/image/forgeron1.png" alt="blacksmith" class="upgrade_img" draggable="false">
+                        </div>
                    
-                    <div class="mid_section">
-                        <h4>Marteau</h4>
-                        <div class="cost_info">
-                            <p><span class="hammer_cost">100</span> </p>
-                            <img src="/image/sword.png" alt="sword" class="sword_img" draggable="false">
+                        <div class="mid_section">
+                            <h4>Forgeroux</h4>
+                            <div class="cost_info">
+                                <p><span class="blacksmith_cost">100</span> </p>
+                                <img src="/image/sword.png" alt="sword" class="sword_img" draggable="false">
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="shop_content three" data-item="hammer">
+                        <div class="next_lvl_info">
+                            <p>
+                            <strong> + <span class="hammer_increase">3</span> /clic </strong>  <br> <em> Un outil robuste pour personne faible.</em>
+                            </p>
                         </div>
-                    </div>
-                    <div class="right_section">
-                        Niveau: <br><span class="hammer_lvl">0</span>
-                    </div>  
-                </div>
-                <div class="shop_content three" data-item="blacksmith">
-                    <div class="next_lvl_info">
-                        <p>
-                           <strong> + <span class="blacksmith_increase">5</span> épées </strong>  <br>par seconde. <br> <em> Ces mecs bossent dur sans jamais se plaindre.</em>
-                        </p>
-                    </div>
-                    <div class="left_section">
-                        <img src="/image/forgeron1.png" alt="blacksmith" class="upgrade_img" draggable="false">
-                    </div>
+                        <div class="left_section">
+                            <img src="/image/hammer.png" alt="hammer" class="upgrade_img" draggable="false">
+                        </div>
                    
-                    <div class="mid_section">
-                        <h4>Forgeroux</h4>
-                        <div class="cost_info">
-                            <p><span class="blacksmith_cost">150</span> </p>
-                            <img src="/image/sword.png" alt="sword" class="sword_img" draggable="false">
+                        <div class="mid_section">
+                            <h4>Marteau</h4>
+                            <div class="cost_info">
+                                <p><span class="hammer_cost">150</span> </p>
+                                <img src="/image/sword.png" alt="sword" class="sword_img" draggable="false">
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="shop_content last" data-item="oven">
+                        <div class="next_lvl_info">
+                            <p>
+                            <strong> + <span class="oven_increase">50</span> /clic </strong> <br> <em>La chaleur qui s'en dégage explique le prix.</em>
+                            </p>
                         </div>
-                    </div>
-                    <div class="right_section">
-                        Niveau: <br><span class="blacksmith_lvl">0</span>
-                    </div>  
-                </div>
-                <div class="shop_content last" data-item="oven">
-                    <div class="next_lvl_info">
-                        <p>
-                          <strong> + <span class="oven_increase">50</span> épées </strong>  <br>pour un clic <br> <em>La chaleur qui s'en dégage explique le prix.</em>
-                        </p>
-                    </div>
-                    <div class="left_section">
-                        <img src="/image/four.png" alt="oven" class="upgrade_img" draggable="false">
-                    </div>
+                        <div class="left_section">
+                            <img src="/image/four.png" alt="oven" class="upgrade_img" draggable="false">
+                        </div>
                    
-                    <div class="mid_section">
-                        <h4>Four</h4>
-                        <div class="cost_info">
-                            <p> <span class="oven_cost">7000</span> </p>
-                            <img src="/image/sword.png" alt="sword" class="sword_img" draggable="false">
-                        </div>
+                        <div class="mid_section">
+                            <h4>Four</h4>
+                            <div class="cost_info">
+                                <p> <span class="oven_cost">3000</span> </p>
+                                <img src="/image/sword.png" alt="sword" class="sword_img" draggable="false">
+                            </div>
+                        </div> 
                     </div>
-                    <div class="right_section">
-                        Niveau: <br><span class="oven_lvl">0</span>
-                    </div>  
+                    
+                    
                 </div>
-              
             </section>
       
         </div>
