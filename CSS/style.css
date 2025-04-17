@@ -11,7 +11,10 @@ body {
     font-family: "Lora", serif;
     user-select: none;
     overflow: hidden;
-    background:radial-gradient(circle,#3B1F17 0%, #000000);
+    background:url(/image/bgforge.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:center;
 }
 
 #wrapper {
@@ -55,7 +58,7 @@ canvas {
     min-height: 0;
     max-height: 85%;
     max-width: 500px; 
-    opacity:.95;
+    opacity:.9;
 }
 /*sections*/
 .navbar {
