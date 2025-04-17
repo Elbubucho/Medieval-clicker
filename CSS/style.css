@@ -10,7 +10,7 @@ body {
     font-family: "Lora", serif;
     user-select: none;
     overflow: hidden;
-    background: url(image/bgforge.png);
+    background: url(../image/bgforge.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
