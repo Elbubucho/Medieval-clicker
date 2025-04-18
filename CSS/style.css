@@ -50,10 +50,6 @@ h5 {
     height: 100%;
 }
 
-canvas {
-    display: none;
-}
-
 .grid_left,
 .grid_center,
 .grid_right {
@@ -64,7 +60,7 @@ canvas {
     min-height: 0;
     max-height: 85%;
     max-width: 500px;
-    opacity: .9;
+    opacity: 0.9;
 }
 
 /*sections*/
@@ -146,6 +142,7 @@ canvas {
     text-align: center;
     color: #FFD34E;
     text-shadow: 2px 2px 2px black;
+    margin-bottom: 15px;
 }
 
 .clicker_lvl,
@@ -421,4 +418,8 @@ img {
 
 .no_cursor {
     cursor: none;
+}
+
+#bs_spritesheet {
+    display: none;
 }
