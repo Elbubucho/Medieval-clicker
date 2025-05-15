@@ -1,21 +1,27 @@
+// Element principaux du DOM
 
-let sword = document.querySelector('.sword_nbr');
+const sword = document.querySelector('.sword_nbr');
+const smithBtn = document.querySelector('.smith_button');
+const returnSpS = document.querySelector('.sps_counter');
+const flyingSword = document.querySelector('.flying_sword');
+const gridCenter = document.querySelector('.grid_center');
+
+// variable de jeu
+
 let swordNbr = Math.round(parseFloat(sword.innerHTML));
-let smithBtn = document.querySelector('.smith_button');
 let swordPerClick = 0;
 let wholeSpS = 0;
-let returnSpS = document.querySelector('.sps_counter');
 let parsedReturnSpS = parseFloat(returnSpS.innerHTML);
 
-/* Incrementation du nombre d'épée au click en fonction des objets achetés et MAJ du nbr affiché */
-function incrementSmith() {
-    smithBtn.addEventListener('click', () => {
-        swordNbr += swordPerClick;
-        sword.innerHTML = ++swordNbr;
-    });
+// Incrementation du nombre d'épée au click
 
-};
-incrementSmith();
+smithBtn.addEventListener('click', (event) => {
+    animatedSwordFromButtonClick(event);
+    swordNbr += swordPerClick;
+sword.innerHTML = ++swordNbr;
+});
+
+
 /* Save Load */
 
 function save() {
@@ -42,6 +48,7 @@ function save() {
 
 
 }
+
 function load() {
     let shopContent = document.querySelectorAll('.shop_content');
     shopContent.forEach(shopContent => {
@@ -62,7 +69,9 @@ function load() {
     CustomHammerCursor();
     startBsAnimation();
 }
-/* achat des objets */
+
+// Objet contenant les items du shop
+
 let shopItems = {
     clicker: {
         costMultiplier: 1.35,
@@ -105,59 +114,71 @@ let shopItems = {
     }
 };
 
+// affichage du gain par seconde
+
+function displaySwordPerSeconde() {
+    parsedReturnSpS = wholeSpS;
+    returnSpS.innerHTML = parsedReturnSpS;
+};
+
+// mise à jour des bonus 
+
+function updateIncrementor(itemData) {
+    if (shopItems[itemData].type === 'morePerSeconde') {
+        wholeSpS += shopItems[itemData].spsIncrement;
+    }
+    else {
+        swordPerClick += shopItems[itemData].spsIncrement;
+    }
+};
+// mis à jour du nombre d'épées
+
+function updateSwordNbr(swordsNbr, shopItemCost) {
+    swordsNbr -= shopItemCost;
+    swordNbr = Math.floor(swordNbr);
+    sword.innerHTML = swordNbr;
+}
+// vérification du cout
+
+function canBuy(itemData){
+   return swordNbr >= parseFloat(shopItems[itemData].costElement.innerHTML);
+}
+
 function buyItems() {
     let shopContent = document.querySelectorAll('.shop_content');
     shopContent.forEach(shopContent => {
         shopContent.addEventListener('click', () => {
 
             let itemData = shopContent.dataset.item;
-
-            let shopItemsCost = shopItems[itemData].costElement.innerHTML;
-
-            if (swordNbr >= shopItemsCost) {
-
+            if (canBuy(itemData)) {
                 let shopItemsCostElement = parseFloat(shopItems[itemData].costElement.innerHTML);
                 let shopItemsLevelElement = parseFloat(shopItems[itemData].levelElement.innerHTML);
                 let shopIncreaseElement = parseFloat(shopItems[itemData].increaseElement.innerHTML);
                 let shopCostElement = parseFloat(shopItems[itemData].costElement.innerHTML);
 
-                swordNbr -= shopItemsCostElement;
-                swordNbr = Math.floor(swordNbr);
-                sword.innerHTML = swordNbr;
+                updateSwordNbr(swordNbr,shopItemsCostElement);
 
-                shopItemsLevelElement++;
+                shopItemsLevelElement++; // maj du niveau 
                 shopItems[itemData].levelElement.innerHTML = shopItemsLevelElement;
 
-                shopIncreaseElement += shopItems[itemData].spsIncrement;
-                shopItems[itemData].increaseElement.innerHTML = shopIncreaseElement;
+                shopIncreaseElement += shopItems[itemData].spsIncrement; // augmentation de la valeur aporté par l'objet acheté
+                shopItems[itemData].increaseElement.innerHTML = shopIncreaseElement; // mise a jour de l'affichage de cette valeur
 
-                shopCostElement *= shopItems[itemData].costMultiplier;
-                shopItems[itemData].costElement.innerHTML = Math.floor(shopCostElement);
+                shopCostElement *= shopItems[itemData].costMultiplier; // multiplication du coup du bonus
+                shopItems[itemData].costElement.innerHTML = Math.floor(shopCostElement); //mise a jour de l'affichage du prix
                 CustomHammerCursor();
-                startBsAnimation()
+                startBsAnimation();
+                updateIncrementor(itemData);
+                displaySwordPerSeconde();
             }
-            if (shopItems[itemData].type === 'morePerSeconde') {
-                wholeSpS += shopItems[itemData].spsIncrement;
-            }
-            else {
-                swordPerClick += shopItems[itemData].spsIncrement;
-            }
-
-            function swordPerSeconde() {
-                if (wholeSpS >= 1) {
-                    parsedReturnSpS = wholeSpS;
-                    returnSpS.innerHTML = parsedReturnSpS;
-                }
-            };
-            swordPerSeconde();
+            
         });
     });
 };
 
-
 buyItems();
 
-/* lancement de l'autoclicker en fonction des objets achetés*/
+// lancement de l'autoclicker 
 
 function autoclicker() {
     swordNbr += wholeSpS;
@@ -166,6 +187,8 @@ function autoclicker() {
 }
 setInterval(autoclicker, 1000);
 autoclicker();
+
+// griser les objets qu'on ne peut acheter
 
 function greyitems() {
     let shopContent = document.querySelectorAll('.shop_content');
@@ -183,54 +206,47 @@ function greyitems() {
 greyitems();
 setInterval(greyitems, 100);
 
-/* Animaition au clique sur la forge */
+// Animaition des épées volantes
+
 const swordTiming = {
     duration: 2000,
     iterations: 1,
 };
 
-let flyingSword = document.querySelector('.flying_sword');
-let gridCenter = document.querySelector('.grid_center');
-
-
-function getRandomPosition(gridCenter) {
-    const gridCenterRect = gridCenter.getBoundingClientRect();
-    const x = Math.random() * (gridCenterRect.width - flyingSword.offsetWidth);
-    const y = Math.random() * (gridCenterRect.height - flyingSword.offsetHeight);
+function getRandomPosition(element) {
+    const elementRect = element.getBoundingClientRect();
+    const x = Math.random() * (elementRect.width - flyingSword.offsetWidth);
+    const y = Math.random() * (elementRect.height - flyingSword.offsetHeight);
     return { x, y };
 }
 
-function getMousePosition(event, gridCenter) {
-    const gridCenterRect = gridCenter.getBoundingClientRect();
-    const relativeX = event.clientX - gridCenterRect.left;
-    const relativeY = event.clientY - gridCenterRect.top;
+function getMousePosition(event, element) {
+    const elementRect = element.getBoundingClientRect();
+    const relativeX = event.clientX - elementRect.left;
+    const relativeY = event.clientY - elementRect.top;
     return { relativeX, relativeY };
 }
-function animatedSwordFromButtonClick() {
-    smithBtn.addEventListener("click", (event) => {
 
-        let flyingClone = flyingSword.cloneNode(true);
-        gridCenter.appendChild(flyingClone);
-        flyingClone.classList.add("display_animation");
+function animatedSwordFromButtonClick(event) {
+    let flyingClone = flyingSword.cloneNode(true);
+    gridCenter.appendChild(flyingClone);
+    flyingClone.classList.add("display_animation");
 
-        const { relativeX, relativeY } = getMousePosition(event, gridCenter);
-        const { x, y } = getRandomPosition(gridCenter);
+    const { relativeX, relativeY } = getMousePosition(event, gridCenter);
+    const { x, y } = getRandomPosition(gridCenter);
 
-        const swordAnimation = [
-            { transform: `translate(${relativeX}px, ${relativeY}px) rotate(0deg)`, opacity: 1 },
-            { transform: `translate(${x}px, ${y}px) rotate(360deg)`, opacity: 0 },
-        ];
+    const swordAnimation = [
+        { transform: `translate(${relativeX}px, ${relativeY}px) rotate(0deg)`, opacity: 1 },
+        { transform: `translate(${x}px, ${y}px) rotate(360deg)`, opacity: 0 },
+    ];
 
-        const animation = flyingClone.animate(swordAnimation, swordTiming);
-        animation.onfinish = () => {
-            flyingClone.classList.remove("display_animation");
-        }
+    const animation = flyingClone.animate(swordAnimation, swordTiming);
+    animation.onfinish = () => {
+        flyingClone.classList.remove("display_animation");
+    }
+}
 
-    });
-};
-animatedSwordFromButtonClick();
-
-/* curseur perso */
+// curseur personnalisé
 
 function CustomHammerCursor() {
     if (parseFloat(shopItems.hammer.levelElement.innerHTML) > 0) {
@@ -258,7 +274,7 @@ function CustomHammerCursor() {
 
 
 
-/* animation forgeron */
+// animation forgeron
 
 
 const canvas = this.document.getElementById('canvas1');
@@ -267,6 +283,7 @@ canvas.width = 500;
 canvas.height = 500;
 
 let gameFrame = 0;
+
 class BlackSmith {
     constructor(canvasWidth, canvasHeight) {
         this.canvasWidth = canvasWidth;
@@ -285,23 +302,24 @@ class BlackSmith {
         this.frameX = 0;
         this.frameY = 0;
     }
-    draw(context) {
+    draw(context) {                                  //méthode d'instance pour dessiner la première image dans le canvas
         context.drawImage(this.image, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight,
             this.spriteWidth, this.spriteHeight, this.x, this.y, this.width * this.scale, this.height * this.scale);
     }
-    update() {
+    update() {                                      // méthode d'instance pour mettre a jour chaque frame (va parcourir la spritsheet)
         if (gameFrame % 2 === 0) {
             if (this.frame === this.maxFrame) {
 
             }
             if (this.frame < this.maxFrame) this.frame++;
             else this.frame = this.minFrame;
-            this.frameX = this.frame % 4; /*permet de parcouri la ligne */
-            this.frameY = Math.floor(this.frame / 4); /* permet de parcourir les colones(pas besoin ici mais) */
+            this.frameX = this.frame % 4;               //permet de parcouri la ligne
+            this.frameY = Math.floor(this.frame / 4);   // permet de parcourir les colones(pas besoin ici mais)
         }
     }
 }
 
+//initialisation d'un forgeron
 
 const forgeron = new BlackSmith(canvas.width, canvas.height);
 
@@ -312,7 +330,9 @@ function animate() {
     gameFrame++;
     requestAnimationFrame(animate);
 }
+
 let isWorking = false
+
 function startBsAnimation() {
     if (parseFloat(shopItems.blacksmith.levelElement.innerHTML) > 0) {
         if (isWorking === false) {

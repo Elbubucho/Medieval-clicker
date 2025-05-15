@@ -305,7 +305,7 @@ img {
 .shop_content.not_enough_money {
     filter: grayscale(100%) brightness(10%);
     pointer-events: none;
-}
+} 
 
 .next_lvl_info {
     flex: 1;
@@ -321,6 +321,11 @@ img {
     color: #F4E5B6;
     border: 1px solid #444;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.shop_content.not_enough_money .next_lvl_info {
+  filter: none;
+  opacity: 1;
 }
 
 .last .next_lvl_info {
