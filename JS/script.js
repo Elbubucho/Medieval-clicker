@@ -5,6 +5,7 @@ const smithBtn = document.querySelector('.smith_button');
 const returnSpS = document.querySelector('.sps_counter');
 const flyingSword = document.querySelector('.flying_sword');
 const gridCenter = document.querySelector('.grid_center');
+const allShopContent = document.querySelectorAll('.shop_content');
 
 // variable de jeu
 
@@ -25,14 +26,10 @@ sword.innerHTML = ++swordNbr;
 /* Save Load */
 
 function save() {
-    localStorage.clear();
-
-    let shopContent = document.querySelectorAll('.shop_content');
-    shopContent.forEach(shopContent => {
+    localStorage.clear();    
+    allShopContent.forEach(shopContent => {
         let itemData = shopContent.dataset.item;
         let shopItem = shopItems[itemData];
-
-
         const saveObj = JSON.stringify({
             parsedLevel: parseFloat(shopItem.levelElement.innerHTML),
             parsedCost: parseFloat(shopItem.costElement.innerHTML),
@@ -50,8 +47,7 @@ function save() {
 }
 
 function load() {
-    let shopContent = document.querySelectorAll('.shop_content');
-    shopContent.forEach(shopContent => {
+    allShopContent.forEach(shopContent => {
         let itemData = shopContent.dataset.item;
         let shopItem = shopItems[itemData];
 
@@ -143,37 +139,49 @@ function updateSwordNbr(swordsNbr, shopItemCost) {
 function canBuy(itemData){
    return swordNbr >= parseFloat(shopItems[itemData].costElement.innerHTML);
 }
+// maj du coup des items
+
+function updateCost(itemData) {
+    let shopCostElement = parseFloat(shopItems[itemData].costElement.innerHTML);
+    shopCostElement *= shopItems[itemData].costMultiplier;
+    shopItems[itemData].costElement.innerHTML = Math.floor(shopCostElement);
+}
+
+// maj de la valeur qu'apporte les items 
+
+function increaseItemBonus(itemData){
+    let shopIncreaseElement = parseFloat(shopItems[itemData].increaseElement.innerHTML);
+    shopIncreaseElement += shopItems[itemData].spsIncrement;
+    shopItems[itemData].increaseElement.innerHTML = shopIncreaseElement;
+}
+
+//maj du niveau des items
+
+function updateLevel(itemData){
+    let shopItemsLevelElement = parseFloat(shopItems[itemData].levelElement.innerHTML);
+    shopItemsLevelElement++;
+    shopItems[itemData].levelElement.innerHTML = shopItemsLevelElement;
+}
 
 function buyItems() {
-    let shopContent = document.querySelectorAll('.shop_content');
-    shopContent.forEach(shopContent => {
-        shopContent.addEventListener('click', () => {
+allShopContent.forEach(shopContent => {
+    shopContent.addEventListener('click', () => {
 
-            let itemData = shopContent.dataset.item;
-            if (canBuy(itemData)) {
-                let shopItemsCostElement = parseFloat(shopItems[itemData].costElement.innerHTML);
-                let shopItemsLevelElement = parseFloat(shopItems[itemData].levelElement.innerHTML);
-                let shopIncreaseElement = parseFloat(shopItems[itemData].increaseElement.innerHTML);
-                let shopCostElement = parseFloat(shopItems[itemData].costElement.innerHTML);
-
-                updateSwordNbr(swordNbr,shopItemsCostElement);
-
-                shopItemsLevelElement++; // maj du niveau 
-                shopItems[itemData].levelElement.innerHTML = shopItemsLevelElement;
-
-                shopIncreaseElement += shopItems[itemData].spsIncrement; // augmentation de la valeur aporté par l'objet acheté
-                shopItems[itemData].increaseElement.innerHTML = shopIncreaseElement; // mise a jour de l'affichage de cette valeur
-
-                shopCostElement *= shopItems[itemData].costMultiplier; // multiplication du coup du bonus
-                shopItems[itemData].costElement.innerHTML = Math.floor(shopCostElement); //mise a jour de l'affichage du prix
-                CustomHammerCursor();
-                startBsAnimation();
-                updateIncrementor(itemData);
-                displaySwordPerSeconde();
-            }
-            
-        });
+        const itemData = shopContent.dataset.item;
+        if (canBuy(itemData)) {
+            const shopItemsCostElement = parseFloat(shopItems[itemData].costElement.innerHTML);
+            updateSwordNbr(swordNbr,shopItemsCostElement);
+            increaseItemBonus(itemData);
+            updateCost(itemData);
+            updateLevel(itemData);
+            CustomHammerCursor();
+            startBsAnimation();
+            updateIncrementor(itemData);
+            displaySwordPerSeconde();
+            autoclicker();
+        }
     });
+});
 };
 
 buyItems();
@@ -186,7 +194,7 @@ function autoclicker() {
     sword.innerHTML = swordNbr;
 }
 setInterval(autoclicker, 1000);
-autoclicker();
+
 
 // griser les objets qu'on ne peut acheter
 
