@@ -129,8 +129,8 @@ function updateIncrementor(itemData) {
 };
 // mis à jour du nombre d'épées
 
-function updateSwordNbr(swordsNbr, shopItemCost) {
-    swordsNbr -= shopItemCost;
+function updateSwordNbr(swordsNbr, cost) {
+    swordsNbr -= cost;
     swordNbr = Math.floor(swordNbr);
     sword.innerHTML = swordNbr;
 }
